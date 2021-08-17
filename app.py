@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import utils
+from database import house_detail
 app = Flask(__name__)
 
 @app.route('/')
@@ -18,7 +19,8 @@ def home_price_pred():
         location = location.lower()
 
         final_predicted_price = utils.prediction_price(size, total_sqft, bath, location)
-
+        house_info = dict(size=size, total_sqft=total_sqft, bath=bath, location=location, final_predicted_price=final_predicted_price)
+        house_detail.insert_one(house_info)
         # return jsonify({'size':size, 'total_sqft': total_sqft, 'bath':bath, 'location':location})
         # return jsonify({'final_predicted_price': final_predicted_price})
         return render_template('result.html', prediction = final_predicted_price)
