@@ -1,0 +1,4 @@
+name: house_pred
+channels:
+  - defaults
+prefix: D:\software\envs\house_pred
